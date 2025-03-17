@@ -8,6 +8,7 @@ defmodule DnDex.CLI.Main do
   end
 
   defp welcome_message do
+    Shell.cmd("clear")
     Shell.info("=== Dungeon Crawl ===")
     Shell.info("You awake in a dungeon, dazed and confused.")
     Shell.info("You hear growling and scraping nearby. There might be monsters around.")

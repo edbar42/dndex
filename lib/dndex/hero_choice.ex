@@ -8,7 +8,15 @@ defmodule DnDex.CLI.HeroChoice do
 
     heroes = DnDex.Heroes.all()
 
-    display_options(heroes)
+    find_hero_by_index = &Enum.at(heroes, &1)
+
+    heroes
+    |> display_options
+    |> generate_question
+    |> Shell.prompt()
+    |> parse_answer
+    |> find_hero_by_index.()
+    |> confirm_choice
   end
 
   def display_options(options) do
@@ -21,5 +29,20 @@ defmodule DnDex.CLI.HeroChoice do
     end)
 
     options
+  end
+
+  defp generate_question(_) do
+    "[Choose a character class to play as]\n"
+  end
+
+  defp parse_answer(answer) do
+    {option, _} = Integer.parse(answer)
+    option - 1
+  end
+
+  defp confirm_choice(choice) do
+    Shell.info("You chose to play as #{choice.name}.")
+    Shell.info("#{choice.description}")
+    if Shell.yes?("Confirm?"), do: choice, else: start()
   end
 end

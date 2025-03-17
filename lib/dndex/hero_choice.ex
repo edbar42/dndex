@@ -8,16 +8,16 @@ defmodule DnDex.CLI.HeroChoice do
 
     heroes = DnDex.Heroes.all()
 
-    heroes
-    |> Enum.map(& &1.name)
-    |> display_options
+    display_options(heroes)
   end
 
   def display_options(options) do
     options
     |> Enum.with_index(1)
     |> Enum.each(fn {option, index} ->
-      Shell.info("[ #{index} - #{option} ]")
+      Shell.info("[ #{index} - #{option.name}")
+      Shell.info("    Gear:    #{option.attack_description}")
+      Shell.info("    Info:    #{option.description} ]")
     end)
 
     options

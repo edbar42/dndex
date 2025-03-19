@@ -5,6 +5,7 @@ defmodule DnDex.CLI.Main do
     welcome_message()
     Shell.prompt("[Press Enter to continue]")
     hero_choice()
+    crawl(DnDex.Room.all())
   end
 
   defp welcome_message do
@@ -17,5 +18,15 @@ defmodule DnDex.CLI.Main do
 
   defp hero_choice do
     DnDex.CLI.HeroChoice.start()
+  end
+
+  defp crawl(rooms) do
+    Shell.info("You proceed to the next room.")
+    Shell.prompt("[Press Enter to continue]")
+    Shell.cmd("clear")
+
+    rooms
+    |> Enum.random()
+    |> DnDex.CLI.RoomActionsChoice.start()
   end
 end

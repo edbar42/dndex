@@ -1,5 +1,6 @@
 defmodule DnDex.CLI.HeroChoice do
   alias Mix.Shell.IO, as: Shell
+  import DnDex.CLI.BaseCommands
 
   def start do
     Shell.cmd("clear")
@@ -11,16 +12,16 @@ defmodule DnDex.CLI.HeroChoice do
     find_hero_by_index = &Enum.at(heroes, &1)
 
     heroes
-    |> display_options
-    |> generate_question
+    |> display_heroes
+    |> choose_hero_question
     |> Shell.prompt()
     |> parse_answer
     |> find_hero_by_index.()
     |> confirm_choice
   end
 
-  def display_options(options) do
-    options
+  def display_heroes(heroes) do
+    heroes
     |> Enum.with_index(1)
     |> Enum.each(fn {option, index} ->
       Shell.info("[ #{index} - #{option.name}")
@@ -28,16 +29,11 @@ defmodule DnDex.CLI.HeroChoice do
       Shell.info("    Info:    #{option.description} ]")
     end)
 
-    options
+    heroes
   end
 
-  defp generate_question(_) do
+  defp choose_hero_question(_) do
     "[Choose a character class to play as]\n"
-  end
-
-  defp parse_answer(answer) do
-    {option, _} = Integer.parse(answer)
-    option - 1
   end
 
   defp confirm_choice(choice) do

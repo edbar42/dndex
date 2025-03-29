@@ -1,6 +1,6 @@
-defmodule Dndex do
+defmodule DnDex do
   @moduledoc """
-  Documentation for `Dndex`.
+  Documentation for `DnDex`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Dndex do
 
   ## Examples
 
-      iex> Dndex.hello()
+      iex> DnDex.hello()
       :world
 
   """

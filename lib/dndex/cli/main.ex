@@ -10,7 +10,7 @@ defmodule DnDex.CLI.Main do
 
   defp welcome_message do
     Shell.cmd("clear")
-    Shell.info("=== Dungeon Crawl ===")
+    Shell.info("=== DnD Elixir ===")
     Shell.info("You awake in a dungeon, dazed and confused.")
     Shell.info("You hear growling and scraping nearby. There might be monsters around.")
     Shell.info("You try to stay calm and resolute. You must find the exit.")
@@ -38,5 +38,5 @@ defmodule DnDex.CLI.Main do
   end
 
   defp handle_action_result({_, :exit}), do: Shell.info("[You found the exit. You win the game.]")
-  defp handle_action_result({character, _}), do: crawl(character, DungeonCrawl.Room.all())
+  defp handle_action_result({character, _}), do: crawl(character, DnDex.Room.all())
 end

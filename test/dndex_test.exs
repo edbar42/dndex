@@ -1,8 +1,8 @@
-defmodule DndexTest do
+defmodule DnDexTest do
   use ExUnit.Case
-  doctest Dndex
+  doctest DnDex
 
   test "greets the world" do
-    assert Dndex.hello() == :world
+    assert DnDex.hello() == :world
   end
 end

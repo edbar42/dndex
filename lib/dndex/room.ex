@@ -1,9 +1,10 @@
 defmodule DnDex.Room do
   alias DnDex.Room
+  alias DnDex.Room.Trigger
 
   import DnDex.Room.Action
 
-  defstruct description: nil, actions: []
+  defstruct description: nil, actions: [], trigger: nil
 
   def all,
     do: [
@@ -36,6 +37,12 @@ defmodule DnDex.Room do
         description:
           "A cold breeze brushes past you as you step into a cavernous space. The sound of distant footsteps makes you uneasy.",
         actions: [forward(), search()]
+      },
+      %Room{
+        description:
+          "Your eyes squint. As they adapt to the brightness you can see the light of day. At last, the exit.",
+        actions: [forward()],
+        trigger: Triggers.Exit
       }
     ]
 end

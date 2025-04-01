@@ -47,7 +47,7 @@ defmodule DnDex.Room do
       },
       %Room{
         description:
-          "Your eyes squint. As they adapt to the brightness you can see the light of day. At last, the exit.",
+          "At the distance you see a ray of sunshine creep through cracks on the wall. The birds chirp faintly at a distance. Could this be the end of this nightmare?",
         actions: [forward()],
         trigger: ExitTrigger
       }

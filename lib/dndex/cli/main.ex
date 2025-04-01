@@ -5,7 +5,8 @@ defmodule DnDex.CLI.Main do
     welcome_message()
     Shell.prompt("[Press Enter to continue]")
 
-    crawl(hero_choice(), DnDex.Room.all())
+    shuffled_rooms = Enum.shuffle(DnDex.Room.all())
+    crawl(hero_choice(), shuffled_rooms)
   end
 
   defp welcome_message do
@@ -43,25 +44,24 @@ defmodule DnDex.CLI.Main do
     Shell.prompt("")
   end
 
-  defp crawl(character, rooms) do
+  defp crawl(character, [current_room | remaining_rooms]) do
     Shell.info("You proceed to the next room.")
     Shell.prompt("[Press Enter to continue]")
     Shell.cmd("clear")
 
     Shell.info("[#{DnDex.Character.current_stats(character)}]")
 
-    rooms
-    |> Enum.random()
+    current_room
     |> DnDex.CLI.RoomActionsChoice.start()
-    |> trigger_action(character)
-    |> handle_action_result
+    |> trigger_action(character, remaining_rooms)
   end
 
-  defp trigger_action({room, action}, character) do
+  defp trigger_action({room, action}, character, remaining_rooms) do
     Shell.cmd("clear")
-    room.trigger.run(character, action)
-  end
 
-  defp handle_action_result({_, :exit}), do: Shell.info("[You found the exit. You win the game.]")
-  defp handle_action_result({character, _}), do: crawl(character, DnDex.Room.all())
+    case room.trigger.run(character, action) do
+      {updated_character, :exit} -> {updated_character, :exit}
+      {updated_character, _} -> crawl(updated_character, remaining_rooms)
+    end
+  end
 end

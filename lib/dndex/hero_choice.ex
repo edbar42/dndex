@@ -5,7 +5,7 @@ defmodule DnDex.CLI.HeroChoice do
   def start do
     Shell.cmd("clear")
     Shell.info("You feel around your body. You seem unharmed. Your wares are still with you...")
-    Shell.info("[Choose a character class to play as]")
+    Shell.info("[Choose a character class to play as]\n")
 
     heroes = DnDex.Heroes.all()
 
@@ -26,7 +26,7 @@ defmodule DnDex.CLI.HeroChoice do
     |> Enum.each(fn {option, index} ->
       Shell.info("[ #{index} - #{option.name}")
       Shell.info("    Gear:    #{option.attack_description}")
-      Shell.info("    Info:    #{option.description} ]")
+      Shell.info("    Info:    #{option.description} ]\n")
     end)
 
     heroes

@@ -14,4 +14,22 @@ defmodule DnDex.Character do
           attack_description: String.t(),
           damage_range: Range.t()
         }
+
+  def take_damage(character, damage) do
+    new_hit_points = max(0, character.hit_points - damage)
+    %{character | hit_points: new_hit_points}
+  end
+
+  def heal(character, healing_value) do
+    new_hit_points =
+      min(
+        character.hit_points + healing_value,
+        character.max_hit_points
+      )
+
+    %{character | hit_points: new_hit_points}
+  end
+
+  def current_stats(character),
+    do: "Player Stats - HP:#{character.hit_points}/#{character.max_hit_points}"
 end

@@ -17,13 +17,38 @@ defmodule DnDex.CLI.Main do
   end
 
   defp hero_choice do
-    DnDex.CLI.HeroChoice.start()
+    hero = DnDex.CLI.HeroChoice.start()
+    %{hero | name: "You"}
+  end
+
+  defp crawl(%{hit_points: 0}, _) do
+    Shell.prompt("")
+    Shell.cmd("clear")
+
+    Shell.info(
+      "You have faced powerful enemies and the aftermath of battle takes the better of you."
+    )
+
+    Shell.info("You feel your body heavy and aching, your vision slowly surrounded by blackness.")
+
+    Shell.info(
+      "You fall to your feet, crawling, attempting to keep going, but exhaustion takes the best of you."
+    )
+
+    Shell.info(
+      "You close your eyes and listen to fainting sound of your breath.. Until you breath no more."
+    )
+
+    Shell.info("      YOU DIED      ")
+    Shell.prompt("")
   end
 
   defp crawl(character, rooms) do
     Shell.info("You proceed to the next room.")
     Shell.prompt("[Press Enter to continue]")
     Shell.cmd("clear")
+
+    Shell.info("[#{DnDex.Character.current_stats(character)}]")
 
     rooms
     |> Enum.random()

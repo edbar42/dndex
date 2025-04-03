@@ -32,4 +32,10 @@ defmodule DnDex.Character do
 
   def current_stats(character),
     do: "Player Stats - HP:#{character.hit_points}/#{character.max_hit_points}"
+
+  defimpl String.Chars, for: DnDex.Character do
+    def to_string(hero) do
+      "#{hero.name} ]\n [ Gear: #{hero.attack_description} ]\n [ Info: #{hero.description}"
+    end
+  end
 end

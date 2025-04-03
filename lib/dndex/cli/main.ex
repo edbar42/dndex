@@ -61,6 +61,7 @@ defmodule DnDex.CLI.Main do
 
     case room.trigger.run(character, action) do
       {updated_character, :exit} -> {updated_character, :exit}
+      {updated_character, :search} -> {updated_character, :search}
       {updated_character, _} -> crawl(updated_character, remaining_rooms)
     end
   end

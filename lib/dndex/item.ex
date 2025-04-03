@@ -1,6 +1,5 @@
 defmodule DnDex.Item do
   alias DnDex.Item
-  alias DnDex.Character
 
   defstruct description: nil, effect: nil
 

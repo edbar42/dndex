@@ -5,6 +5,5 @@ defmodule DnDex.Room.Action do
   @type t :: %Action{id: atom, label: String.t()}
 
   def forward, do: %Action{id: :forward, label: "Move foward."}
-  def rest, do: %Action{id: :rest, label: "Take a short rest."}
   def search, do: %Action{id: :search, label: "Search the room."}
 end

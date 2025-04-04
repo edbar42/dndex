@@ -9,14 +9,8 @@ defmodule DnDex.CLI.HeroChoice do
 
     heroes = DnDex.Heroes.all()
 
-    find_hero_by_index = &Enum.at(heroes, &1)
-
     heroes
-    |> display_heroes
-    |> choose_hero_question
-    |> Shell.prompt()
-    |> parse_answer
-    |> find_hero_by_index.()
+    |> ask_for_option
     |> confirm_choice
   end
 
